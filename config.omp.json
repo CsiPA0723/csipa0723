@@ -9,10 +9,15 @@
       "alignment": "left",
       "segments": [
         {
-          "foreground": "#757575",
+          "foreground": "#dad0e2",
           "style": "powerline",
-          "template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}} :: ",
           "type": "os"
+        },
+        {
+          "foreground": "#757575",
+          "style": "plain",
+          "template": ":: ",
+          "type": "text"
         },
         {
           "foreground": "#007acc",
