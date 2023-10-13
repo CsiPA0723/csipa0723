@@ -11,12 +11,13 @@
         {
           "foreground": "#dad0e2",
           "style": "powerline",
+          "template": "{{ if .WSL }}WSL <#757575,>at</>{{ end }} {{.Icon}}",
           "type": "os"
         },
         {
           "foreground": "#757575",
           "style": "plain",
-          "template": ":: ",
+          "template": " :: ",
           "type": "text"
         },
         {
