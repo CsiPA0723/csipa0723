@@ -2,16 +2,19 @@
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "final_space": true,
   "version": 2,
-  "tooltips": [],
   "blocks": [
     {
       "type": "prompt",
       "alignment": "left",
       "segments": [
         {
-          "foreground": "#dad0e2",
+          "foreground": "#a096aa",
           "style": "powerline",
-          "template": "{{ if .WSL }}WSL <#757575,>at</>{{ end }} {{.Icon}}",
+          "properties": {
+            "display_distro_name": true,
+            "windows": "win"
+          },
+          "template": "{{ if .WSL }}<#757575>(</>wsl<#757575>)</> {{ end }}{{.Icon}}",
           "type": "os"
         },
         {
@@ -29,7 +32,7 @@
         {
           "foreground": "#ff8080",
           "style": "plain",
-          "template": " <#757575,>as</> root",
+          "template": " <#757575>as</> root",
           "type": "root"
         },
         {
@@ -38,8 +41,18 @@
             "time_format": "15:04:05"
           },
           "style": "plain",
-          "template": " <#757575,>|</> {{ .CurrentDate | date .Format }}",
+          "template": " <#757575>|</> {{ .CurrentDate | date .Format }}",
           "type": "time"
+        },
+        {
+          "type": "executiontime",
+          "style": "plain",
+          "foreground": "#dd9000",
+          "template": " <#757575>|</> {{ .FormattedMs }} ",
+          "properties": {
+            "threshold": 10,
+            "style": "austin"
+          }
         }
       ]
     },
@@ -59,19 +72,22 @@
           "foreground": "#100e23",
           "powerline_symbol": "\ue0b0",
           "properties": {
-            "style": "agnoster_full"
+            "folder_icon": "\u2026",
+            "folder_separator_icon": " \ue0b1 ",
+            "style": "agnoster_short",
+            "max_depth": 3
           },
           "style": "powerline",
           "template": " {{ .Path }} ",
           "type": "path"
         },
         {
-          "background": "#95ffa4",
+          "background": "#32f84c",
           "background_templates": [
-            "{{ if or (.Working.Changed) (.Staging.Changed) }}#ff9248{{ end }}",
-            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#f26d50{{ end }}",
-            "{{ if gt .Ahead 0 }}#89d1dc{{ end }}",
-            "{{ if gt .Behind 0 }}#c5b6ad{{ end }}"
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#FF9248{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#ff4500{{ end }}",
+            "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+            "{{ if gt .Behind 0 }}#B388FF{{ end }}"
           ],
           "foreground": "#100e23",
           "powerline_symbol": "\ue0b0",
@@ -101,14 +117,6 @@
           "style": "powerline",
           "template": " {{ .WorkspaceName }} ",
           "type": "terraform"
-        },
-        {
-          "background": "#ff8080",
-          "foreground": "#ffffff",
-          "powerline_symbol": "\ue0b0",
-          "style": "powerline",
-          "template": " error ",
-          "type": "status"
         }
       ]
     },
@@ -119,12 +127,6 @@
       "segments": [
         {
           "foreground": "#757575",
-          "style": "plain",
-          "template": "$",
-          "type": "text"
-        },
-        {
-          "foreground": "#e0f8ff",
           "foreground_templates": [
             "{{ if gt .Code 0 }}#ef5350{{ end }}"
           ],
@@ -132,8 +134,14 @@
             "always_enabled": true
           },
           "style": "plain",
-          "template": "\u276f",
+          "template": "{{ if eq .Code 0 }}${{ else }}\uf071 {{ reason .Code }} {{ end }}",
           "type": "status"
+        },
+        {
+          "foreground": "#e0f8ff",
+          "style": "plain",
+          "template": "\u276f",
+          "type": "text"
         }
       ]
     }
@@ -141,6 +149,6 @@
   "transient_prompt": {
     "background": "transparent",
     "foreground": "#e0f8ff",
-    "template": "<#689f38>{{ .Segments.Time.CurrentDate | date .Segments.Time.Format }}</> \u276f "
+    "template": "<#689f38>{{ .Segments.Time.CurrentDate | date .Segments.Time.Format }}</> <#757575>$</>\u276f "
   }
 }
