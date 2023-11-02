@@ -48,7 +48,7 @@
           "type": "executiontime",
           "style": "plain",
           "foreground": "#dd9000",
-          "template": " <#757575>|</> {{ .FormattedMs }} ",
+          "template": " <#757575>|</> \uf252 {{ .FormattedMs }}",
           "properties": {
             "threshold": 10,
             "style": "austin"
@@ -75,7 +75,21 @@
             "folder_icon": "\u2026",
             "folder_separator_icon": " \ue0b1 ",
             "style": "agnoster_short",
-            "max_depth": 3
+            "max_depth": 3,
+            "mapped_locations_enabled": true,
+            "mapped_locations": {
+              "C:": "C",
+              "D:": "D",
+              "E:": "E",
+              "F:": "F",
+              "G:": "G",
+              "H:": "H",
+              "C:/Work": "\udb83\udccb 孜",
+              "D:/Projects": "\udb80\udedc 企",
+              "D:/Projects/Angular": "\udb80\udedc 企 \ue0b1 \ue753",
+              "D:/Projects/dotNet": "\udb80\udedc 企 \ue0b1 \udb82\udeae",
+              "D:/School": "\udb86\ude21 校"
+            }
           },
           "style": "powerline",
           "template": " {{ .Path }} ",
