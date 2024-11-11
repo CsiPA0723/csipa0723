@@ -1,23 +1,63 @@
-#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
-
-final_space = true
-version = 2
+console_title_template = '{{ .Shell } in {{ .Folder }}'
+version = 3
 shell_integration = true
-console_title_template = "{{ .Shell } in {{ .Folder }}"
+final_space = true
+
+[palette]
+  base = '#24173a'
+  blue = '#8aadf4'
+  crust = '#181926'
+  flamingo = '#f0c6c6'
+  green = '#a6da95'
+  lavender = '#b7bdf8'
+  mantle = '#1e2030'
+  maroon = '#ee99a0'
+  mauve = '#c6a0f6'
+  overlay0 = '#6e738d'
+  overlay1 = '#8087a2'
+  overlay2 = '#969ab7'
+  peach = '#f5a97f'
+  pink = '#f5bde6'
+  red = '#ed8796'
+  rosewater = '#f4dbd6'
+  sapphire = '#7dc4e4'
+  sky = '#91d7e3'
+  subtext0 = '#a5adcb'
+  subtext1 = '#b8c0e0'
+  surface0 = '#363a4f'
+  surface1 = '#494d64'
+  surface2 = '#5b6078'
+  teal = '#8bd5ca'
+  text = '#cad3f5'
+  yellow = '#eed49f'
+
+[secondary_prompt]
+  template = '❯❯ '
+  foreground = 'p:green'
+  background = 'transparent'
+
+[transient_prompt]
+  template = '❯ '
+  background = 'transparent'
+  foreground_templates = [
+    '{{if gt .Code 0}}p:red{{end}}',
+    '{{if eq .Code 0}}p:mauve{{end}}',
+  ]
 
 [[blocks]]
+  type = 'prompt'
   alignment = 'left'
   newline = true
-  type = 'prompt'
 
   [[blocks.segments]]
-    background = 'transparent'
-    foreground = 'p:blue'
-    style = 'plain'
     template = '{{ .Path }}'
+    foreground = 'p:blue'
+    background = 'transparent'
     type = 'path'
+    style = 'plain'
 
     [blocks.segments.properties]
+      cache_duration = 'none'
       folder_icon = '…'
       folder_separator_icon = '/'
       mapped_locations_enabled = true
@@ -25,17 +65,17 @@ console_title_template = "{{ .Shell } in {{ .Folder }}"
       style = 'powerlevel'
 
   [[blocks.segments]]
-    background = 'transparent'
+    template = ' {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} │{{ end }}{{ if .Staging.Changed }} {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} {{ .StashCount }}{{ end }} '
     foreground = 'p:overlay1'
+    background = 'transparent'
+    type = 'git'
+    style = 'plain'
     foreground_templates = [
       '{{ if or (.Working.Changed) (.Staging.Changed) }}p:yellow{{ end }}',
       '{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:red{{ end }}',
       '{{ if gt .Ahead 0 }}p:lavander{{ end }}',
       '{{ if gt .Behind 0 }}p:lavander{{ end }}',
     ]
-    style = 'plain'
-    template = ' {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} │{{ end }}{{ if .Staging.Changed }} {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} {{ .StashCount }}{{ end }} '
-    type = 'git'
 
     [blocks.segments.properties]
       branch_ahead_icon = '↑'
@@ -43,6 +83,7 @@ console_title_template = "{{ .Shell } in {{ .Folder }}"
       branch_gone = '≢'
       branch_icon = ' '
       branch_identical_icon = '≡'
+      cache_duration = 'none'
       cherry_pick_icon = '✓ '
       commit_icon = '▷ '
       fetch_stash_count = true
@@ -52,78 +93,51 @@ console_title_template = "{{ .Shell } in {{ .Folder }}"
       rebase_icon = 'Ɫ '
       tag_icon = '▶ '
 
-
 [[blocks]]
   type = 'rprompt'
   overflow = 'hidden'
 
-
   [[blocks.segments]]
-    type = 'executiontime'
-    style = 'plain'
+    template = '  {{ .FormattedMs }}'
     foreground = 'p:yellow'
     background = 'transparent'
-    template = '  {{ .FormattedMs }}'
+    type = 'executiontime'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
 
 [[blocks]]
+  type = 'prompt'
   alignment = 'left'
   newline = true
-  type = 'prompt'
 
   [[blocks.segments]]
+    template = '{{ .UserName }}'
+    foreground = 'p:sky'
     background = 'transparent'
+    type = 'text'
+    style = 'plain'
+
+  [[blocks.segments]]
+    template = '@{{ .HostName }} '
     foreground = 'p:overlay1'
-    style = 'plain'
-    template = '{{ .UserName }}@{{ .HostName }} '
+    background = 'transparent'
     type = 'text'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
 
   [[blocks.segments]]
-    background = 'transparent'
-    foreground_templates = [
-      "{{if gt .Code 0}}p:red{{end}}",
-      "{{if eq .Code 0}}p:mauve{{end}}",
-    ]
-    style = 'plain'
     template = '❯'
+    background = 'transparent'
     type = 'text'
+    style = 'plain'
+    foreground_templates = [
+      '{{if gt .Code 0}}p:red{{end}}',
+      '{{if eq .Code 0}}p:mauve{{end}}',
+    ]
 
-[transient_prompt]
-  background = 'transparent'
-  foreground_templates = [
-    "{{if gt .Code 0}}p:red{{end}}",
-    "{{if eq .Code 0}}p:mauve{{end}}",
-  ]
-  template = '❯ '
-
-[secondary_prompt]
-  background = "transparent"
-  foreground = "p:green"
-  template = "❯❯ "
-
-[palette]
-  rosewater = '#f4dbd6'
-  flamingo = '#f0c6c6'
-  pink = '#f5bde6'
-  mauve = '#c6a0f6'
-  red = '#ed8796'
-  maroon = '#ee99a0'
-  peach = '#f5a97f'
-  yellow = '#eed49f'
-  green = '#a6da95'
-  teal = '#8bd5ca'
-  sky = '#91d7e3'
-  sapphire = '#7dc4e4'
-  blue = '#8aadf4'
-  lavender = '#b7bdf8'
-  text = '#cad3f5'
-  subtext1 = '#b8c0e0'
-  subtext0 = '#a5adcb'
-  overlay2 = '#969ab7'
-  overlay1 = '#8087a2'
-  overlay0 = '#6e738d'
-  surface2 = '#5b6078'
-  surface1 = '#494d64'
-  surface0 = '#363a4f'
-  base = '#24173a'
-  mantle = '#1e2030'
-  crust = '#181926'
+    [blocks.segments.properties]
+      cache_duration = 'none'
